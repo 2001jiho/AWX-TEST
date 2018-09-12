@@ -1,0 +1,18 @@
+ - name: Junos Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: Building configuration in Roles/BGP with unnumbered interface
+     template:
+       src: ./Roles/BGP_Builder/conf_bgp_leaf.j2
+       dest: ./Roles/BGP_Builder/{{ inventory_hostname }}.cfg
+
+   - name: load configure file into device
+     junos_config:
+       src: ./Roles/BGP_Builder/{{ inventory_hostname }}.cfg
+       comment: update config by Ansiblebfgfdcvbv

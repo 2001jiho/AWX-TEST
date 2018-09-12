@@ -1,0 +1,10 @@
+ - name: Junos ZTP conf create
+   hosts: localhost
+   connection: local
+   gather_facts: no
+
+   tasks:
+   - name: Building configuration for DHCP
+     assemble:
+       src: ./Roles/ZTP_init/ztp_conf/
+       dest: ./Roles/ZTP_init/ztp_conf/ztp.conf

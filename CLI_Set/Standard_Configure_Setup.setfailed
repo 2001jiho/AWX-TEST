@@ -1,0 +1,19 @@
+set groups commons system time-zone {{ time_zone }}
+set groups commons system services ssh root-login allow
+set groups commons system services netconf ssh
+{% for name_server in global.ntp_servers %}
+set groups commons system ntp server {{ ntp_servers }}
+{% endfor %}
+{% for name_server in global.name_servers %}
+set groups commons system name-server {{ name_servers }}
+{% endfor %}
+set groups commons snmp location "{{ global.snmp.location }}"
+set groups commons snmp community {{ snmp.community }} authorization read-only
+{% if global.routes.static is defined %}
+{% for route, next_hop in global.routes.static.iteritems() %}
+set groups commons routing-options static route 0.0.0.0/0 next-hop 172.27.14.1
+set groups commons routing-options static route 0.0.0.0/0 retain
+set groups commons routing-options static route 0.0.0.0/0 no-readvertise
+{% endfor %}
+{% endif %}
+set apply-groups commons

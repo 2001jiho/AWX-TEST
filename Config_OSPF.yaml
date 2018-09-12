@@ -1,0 +1,19 @@
+ - name: Junos Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: Building configuration in Roles/OSPF with unnumbered interface
+     template:
+       src: ./Roles/OSPF_Builder/conf_ospf.j2
+       dest: ./Roles/OSPF_Builder/{{ inventory_hostname }}.cfg
+
+   - name: load configure file into device
+     junos_config:
+       src: ./Roles/OSPF_Builder/{{ inventory_hostname }}.cfg
+       src_format: set
+       comment: update config by Ansible

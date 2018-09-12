@@ -1,0 +1,24 @@
+---
+- name: Junos Configure Setup
+  hosts: '{{ target }}'
+  roles:
+   - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  tasks:
+##################################################
+####    TEST 1                                  ##
+##################################################
+  - name: "TEST 1 - Execute SNAPCHECK with 1 test file / no dir"
+    register: test1
+    ignore_errors: True
+    tags: [ test1 ]
+  # - debug: var=test1
+  - name: Check TEST 1
+    assert:
+      that:
+        - test1.facts.hostname
+        - test1.facts.serialnumber
+        - test1.facts.model
+    tags: [ test1 ] 

@@ -1,0 +1,7 @@
+set system time-zone Asia/Seoul
+{% if ntp is defined %}
+{% for ntps in ntp %}
+set system ntp server {{ ntps.ip }}
+{% endfor %}
+{% endif %}
+

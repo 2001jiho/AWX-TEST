@@ -1,0 +1,12 @@
+ - name: Running Configuration backup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   - name: Get Running Configuration from each Hosts
+     junos_get_config: 
+       host: "{{ inventory_hostname }}"
+       dest: "backups/{{ inventory_hostname }}.conf"

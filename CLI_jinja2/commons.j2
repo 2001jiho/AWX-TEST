@@ -1,0 +1,76 @@
+groups {
+    default {
+        system {
+            time-zone {{ global.time_zone }};
+            name-server {
+        {% for name_server in global.name_servers %}
+                {{ name_server }};
+        {% endfor %}
+            }
+            services {
+                netconf {
+                    ssh;
+                }
+                ssh {
+                    root-login allow;
+                }
+            }
+            syslog  {
+                user * {
+                    any emergency;
+                }
+                file messages {
+                    any notice;
+                }
+                file cli-commands {
+                    interactive-commands any;
+                    explicit-priority;
+                }
+                time-format millisecond;
+            }
+            ntp {
+        {% for ntp_server in global.ntp_servers %}
+                server {{ ntp_server }};
+        {% endfor %}
+            }
+        }
+        
+        snmp {
+            location "{{ global.snmp.location }}";
+        {% for snmp in global.snmp.polling %}
+            community {{ snmp.community }} {
+                authorization read-only;
+            }
+        {% endfor %}
+        }
+        routing-options {
+        {% if global.routes.static is defined %}
+            static {
+        {% for route, next_hop in global.routes.static.iteritems() %}
+                route {{ route }} {
+                    next-hop {{ next_hop }};
+                    retain;
+                    no-readvertise;
+                }
+        {% endfor %}
+            }
+        {% endif %}
+            forwarding-table {
+                export ECMP_Routing;
+            }
+        }
+        policy-options {
+            policy-statement ECMP_Routing {
+                then {
+                    load-balance per-packet;
+                }
+            }
+        }        
+        protocols {
+            lldp {
+                interface all;
+            }
+        }
+    }
+}
+apply-groups default;

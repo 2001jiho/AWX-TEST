@@ -1,0 +1,13 @@
+ - name: ECMP Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+
+   - name: ECMP to devices running Junos
+     junos_config:
+      src: ./Roles/Config_ECMP.j2
+      comment: Configured by ansible

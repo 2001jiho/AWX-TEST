@@ -1,0 +1,7 @@
+{% if routes.static is defined %}
+{% for route, next_hop in routes.static.iteritems() %}
+set routing-options static route {{ route }} next-hop {{ next_hop }}
+set routing-options static route {{ route }} retain
+set routing-options static route {{ route }} no-readvertise
+{% endfor %}
+{% endif %}

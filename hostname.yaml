@@ -1,0 +1,13 @@
+ - name: Standards Common Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+
+   - name: Common configuration to devices running Junos
+     junos_config:
+      src: ./CLI_Set/hostname.set
+      comment: Configured by ansible

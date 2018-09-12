@@ -1,0 +1,21 @@
+ - name: Standards Common Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: Building common configuration
+     template:
+       src: ./CLI_jinja2/commons.j2
+       dest: ./CLI_jinja2/res_common.cfg
+
+   - name: load configure file into device
+     junos_config:
+       src: ./CLI_jinja2/res_common.cfg
+#       backup: yes
+       comment: update config by Ansible
+
+       

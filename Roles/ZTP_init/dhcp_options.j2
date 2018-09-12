@@ -1,0 +1,11 @@
+host {{ hostname }} {  
+    hardware ethernet {{ mac }};
+{% if mgmt is defined %}
+{% for mgmt in mgmt %}
+    fixed-address {{ mgmt.ip }};
+    option option-150 192.168.200.164; 
+    option ZTP.server-file "/var/ftp/{{ mgmt.ip }}.cfg";
+    option ZTP.transfer-mode "ftp";
+{% endfor %}
+{% endif %}
+}

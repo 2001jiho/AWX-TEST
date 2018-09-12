@@ -1,0 +1,20 @@
+ - name: System Configure Setup
+   hosts: QFX
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: configure the login banner
+     junos_banner:
+       banner: login
+       text: |
+         ==================================================
+         =  Juniper (00) Automation Device / KwonSun Bae  =
+         =     BMT Duration : 2018.06.15 ~ 2018.08.30     =
+         =      Please Don t Change Anything. Thanks      =
+         ==================================================
+       state: present
+       

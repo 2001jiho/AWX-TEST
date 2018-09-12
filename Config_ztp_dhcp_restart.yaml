@@ -1,0 +1,9 @@
+---
+ - name: update the FTP and DHCP servers 
+   hosts: 172.27.14.156
+   gather_facts: no
+ 
+   tasks:
+    - name: restart dhcp service
+      service: name=isc-dhcp-server state=restarted
+      

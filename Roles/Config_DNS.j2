@@ -1,0 +1,5 @@
+{% if dns is defined %}
+{% for dnss in dns %}
+set system name-server {{ dnss.ip }}
+{% endfor %}
+{% endif %}

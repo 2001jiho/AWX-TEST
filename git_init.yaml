@@ -1,0 +1,8 @@
+- hosts: 172.27.14.175
+
+  tasks:
+    - name: Execute the command in shell for git init
+      script: git_init.sh
+      ignore_errors: true
+
+    

@@ -1,0 +1,14 @@
+ - name: NTP Server Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+
+   - name: NTP Server to devices running Junos
+     junos_config:
+      src: ./Roles/Config_NTP.j2
+      src_format: set
+      comment: Configured by ansible

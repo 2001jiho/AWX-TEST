@@ -1,0 +1,13 @@
+ - name: DNS Server Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+
+   - name: DNS Server to devices running Junos
+     junos_config:
+      src: ./Roles/Config_DNS.j2
+      comment: Configured by ansible

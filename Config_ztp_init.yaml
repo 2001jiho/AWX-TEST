@@ -1,0 +1,26 @@
+ - name: Junos Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: Building configuration in Roles/ZTP init
+     template:
+       src: ./Roles/ZTP_init/ZTP_init.j2
+       dest: ./Roles/ZTP_init/{{ inventory_hostname }}.cfg
+
+   - name: Building DHCP configuration in Roles/dhcp_options
+     template:
+       src: ./Roles/ZTP_init/dhcp_options.j2
+       dest: ./Roles/ZTP_init/ztp_conf/{{ inventory_hostname }}.conf
+
+#   - name: load configure file into device
+#     junos_config:
+#       src: ./Roles/ZTP_init/ZTP_init.cfg
+#       backup: yes
+#       comment: update config by Ansible
+
+       

@@ -1,0 +1,15 @@
+ - name: System Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: configure the login banner
+     junos_banner:
+       banner: login
+       text: '{{ banner }}'
+       state: present
+       

@@ -1,0 +1,20 @@
+
+{% if interfaces is defined %}
+{% for int in interfaces %}
+set interfaces {{ int }} unit 0 family inet unnumbered-address lo0.0
+{% endfor %}
+{% endif %}
+
+{% if loopback is defined %}
+{% for lo0 in loopback %}
+set routing-options router-id {{ lo0.ip }}
+{% endfor %}
+{% endif %}
+
+set protocols ospf area 0.0.0.0 interface lo0.0 passive
+{% if interfaces is defined %}
+{% for int in interfaces %}
+set protocols ospf area 0.0.0.0 interface {{ int }}.0 interface-type p2p
+{% endfor %}
+{% endif %}
+

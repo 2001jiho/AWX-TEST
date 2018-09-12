@@ -1,0 +1,3 @@
+#!/bin/bash
+scp /var/lib/docker/overlay2/a372ed99a5028548cde1c329057740ed6af35c53020e9ff0f3e00ae1eea87a07/merged/var/lib/awx/projects/_23__juniper_sddc_automation_lab/Roles/ZTP_init/*.cfg root@192.168.200.164:/var/ftp/
+scp /var/lib/docker/overlay2/a372ed99a5028548cde1c329057740ed6af35c53020e9ff0f3e00ae1eea87a07/merged/var/lib/awx/projects/_23__juniper_sddc_automation_lab/Roles/ZTP_init/ztp_conf/ztp.conf root@192.168.200.164:/etc/dhcp/hosts/

@@ -1,0 +1,24 @@
+protocols {
+    bgp {
+        log-updown;
+        graceful-restart;
+{% for groups in group %}
+        group {{ groups.name }} {
+            type external;
+            local-as {{ groups.local_asn }};
+            multipath multiple-as;
+            mtu-discovery;
+            bfd-liveness-detection {
+                minimum-interval 350;
+                multiplier 3;
+                session-mode automatic;
+            }
+{% for neighbor in groups.neighbors %}
+            neighbor {{ neighbor.peer_ip }} {
+                peer-as {{ neighbor.asn }};
+            }
+{% endfor %}
+        }
+{% endfor %}
+    }
+}

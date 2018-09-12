@@ -1,0 +1,18 @@
+protocols {
+    bgp {
+        log-updown;
+        graceful-restart;
+{% for groups in group %}
+        group DC {
+            type internal;
+            local-address {{ groups.local_add }};
+            local-as {{ groups.local_asn }};
+            multipath;
+            mtu-discovery;
+{% for neighbor in groups.neighbors %}
+            neighbor {{ neighbor.peer_ip }};
+{% endfor %}
+        }
+{% endfor %}
+    }
+}

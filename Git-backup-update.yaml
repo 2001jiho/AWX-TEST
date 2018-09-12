@@ -1,0 +1,18 @@
+- hosts: 192.168.200.160
+
+  tasks:
+#    - name: Execute the command in shell for rename
+#      script: git-push.sh
+    
+#    - name: Execute the command in shell for git add
+#      command: cd /var/lib/awx/projects/_6__jnpr_automation_lab/
+#
+#    - name: Execute the command in shell for git add
+#      command: git add ./
+#
+    - name: Execute the command in shell for git commit
+      script: git-commit.sh
+#    
+#    - name: Execute the command in shell for git push
+#      command: git push
+      

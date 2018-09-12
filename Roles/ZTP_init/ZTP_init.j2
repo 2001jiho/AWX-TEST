@@ -1,0 +1,76 @@
+system {
+{% if rootpassword is defined %}
+    root-authentication {
+        encrypted-password "{{ rootpassword }}";
+    }
+{% endif %}
+{% if hostname is defined %}
+    host-name {{ hostname }};
+{% endif %}
+{% if localuser is defined %}
+{% for user in localuser %}
+    login {
+        user {{ user.name }} {
+            class super-user;
+            authentication {
+                encrypted-password "{{ user.password }}";
+            }
+        }
+    }
+{% endfor %}
+{% endif %}
+    services {
+        ssh {
+            root-login allow;
+        }
+        netconf {
+            ssh;                        
+        }
+    }
+}
+{% if mgmt is defined %}
+interfaces {
+{% for int in mgmt %}
+    {{ int.name }} {
+        unit 0 {
+            family inet {
+                address {{ int.ip }}/{{ int.subnet }};
+            }
+        }
+    }                                   
+{% endfor %}
+    em1 {
+        unit 0 {
+            family inet {
+                address 169.254.0.2/24;
+            }
+        }
+    }
+}
+{% endif %}
+{% if loopback is defined %}
+interfaces {
+{% for int in loopback %}
+    {{ int.name }} {
+        unit 0 {
+            family inet {
+                address {{ int.ip }}/{{ int.subnet }};
+            }
+        }
+    }
+{% endfor %}
+}
+{% endif %}
+{% if interfaces is defined %}
+interfaces {
+{% for int in interfaces %}
+    {{ int.name }} {
+        unit 0 {
+            family inet {
+                address {{ int.ip }}/{{ int.subnet }};
+            }
+        }
+    }
+{% endfor %}
+}
+{% endif %}

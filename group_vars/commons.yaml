@@ -1,0 +1,16 @@
+global:
+    time_zone: 
+    name_servers:
+    - 168.126.63.1
+    - 8.8.8.8
+    ntp_servers:
+    - time.bora.net
+    - kr.pool.ntp.org
+    snmp:
+        location: "JNPR 19F"
+        polling:
+        - community: jun2per
+    routes:
+      static:
+        172.16.0.0/12: 172.27.14.1
+        0.0.0.0/0: 172.27.14.254

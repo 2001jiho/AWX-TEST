@@ -1,0 +1,6 @@
+---
+- hosts: 192.168.200.150
+  tasks:
+  - name: transfer data from AWX to FTP-server
+    script: file_update.sh
+  

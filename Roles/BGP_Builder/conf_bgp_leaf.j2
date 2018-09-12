@@ -1,0 +1,25 @@
+routing-options {
+    autonomous-system {{ local_asn }};
+}
+protocols {
+    bgp {
+        log-updown;
+        graceful-restart;
+{% for groups in group %}
+        group DC {
+            type internal;
+{% if loopback is defined %}
+{% for lo0 in loopback %}
+            local-address {{ lo0.ip }};
+{% endfor %}
+{% endif %}
+            local-as {{ local_asn }};
+            multipath;
+            mtu-discovery;
+{% for neighbor in groups.neighbors %}
+            neighbor {{ neighbor.peer_ip }};
+{% endfor %}
+        }
+{% endfor %}
+    }
+}

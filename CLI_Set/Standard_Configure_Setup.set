@@ -1,0 +1,15 @@
+set groups default system time-zone Asia/Seoul
+set groups default system services ssh root-login allow
+set groups default system services netconf ssh
+set groups default system ntp server 203.248.240.140
+set groups default system ntp server 211.233.40.78
+set groups default system name-server 168.126.63.1
+set groups default system name-server 8.8.8.8
+set groups default snmp location "JNPR 19F"
+set groups default snmp community jun2per authorization read-only
+set groups default routing-options static route 0.0.0.0/0 next-hop 172.27.14.1
+set groups default routing-options static route 0.0.0.0/0 retain
+set groups default routing-options static route 0.0.0.0/0 no-readvertise
+set groups default policy-options policy-statement ECMP_Routing then load-balance per-packet
+set groups default routing-options forwarding-table export ECMP_Routing
+set apply-groups default

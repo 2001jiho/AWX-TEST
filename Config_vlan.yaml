@@ -1,0 +1,21 @@
+ - name: Junos Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+   
+   - name: Building configuration in Roles/configration-maker
+     template:
+       src: ./Roles/Configuration Maker/Configuration-maker.j2
+       dest: ./Roles/Configuration Maker/Configuration-maker.cfg
+
+   - name: load configure file into device
+     junos_config:
+       src: ./Roles/Configuration Maker/Configuration-maker.cfg
+#       backup: yes
+       comment: update config by Ansible
+
+       

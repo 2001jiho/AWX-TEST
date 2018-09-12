@@ -1,0 +1,13 @@
+ - name: Default static Configure Setup
+   hosts: '{{ target }}'
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+
+   tasks:
+
+   - name: Default static to devices running Junos
+     junos_config:
+      src: ./Roles/Config_Default_static.j2
+      comment: Configured by ansible
